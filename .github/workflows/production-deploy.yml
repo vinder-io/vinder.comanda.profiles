@@ -44,7 +44,8 @@ jobs:
             docker rm comanda.profiles.webapi || true
 
             echo "starting new container..."
-            docker run -d --name comanda.profiles.webapi -p 8080:80 \
+            docker run -d --name comanda.profiles.webapi -p 8080:5000 \
+              -e ASPNETCORE_URLS=http://+:5000 \
               -e Settings__Database__ConnectionString="${{ secrets.MONGO_CONNECTIONSTRING }}" \
               -e Settings__Database__DatabaseName="${{ secrets.MONGO_DATABASENAME }}" \
               -e Settings__Federation__BaseUrl="${{ secrets.FEDERATION_BASEURL }}" \
