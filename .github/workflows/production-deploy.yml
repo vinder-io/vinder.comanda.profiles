@@ -32,17 +32,20 @@ jobs:
             echo "pulling latest image..."
             docker pull $IMAGE
 
-            echo "stopping old container..."
-            docker stop comanda || true
-            docker rm comanda || true
+            echo "stopping old container (if exists)..."
+            docker stop comanda.profiles.webapi || true
+            docker rm comanda.profiles.webapi || true
 
             echo "starting new container..."
-            docker run -d --name comanda -p 8080:80 \
+            docker run -d --name comanda.profiles.webapi -p 8080:80 \
               -e Settings__Database__ConnectionString="${{ secrets.MONGO_CONNECTIONSTRING }}" \
               -e Settings__Database__DatabaseName="${{ secrets.MONGO_DATABASENAME }}" \
-              -e Settings__Administration__Username="${{ secrets.ADMIN_USERNAME }}" \
-              -e Settings__Administration__Password="${{ secrets.ADMIN_PASSWORD }}" \
+              -e Settings__Federation__BaseUrl="${{ secrets.FEDERATION_BASEURL }}" \
+              -e Settings__Federation__Tenant="${{ secrets.FEDERATION_TENANT }}" \
+              -e Settings__Federation__ClientId="${{ secrets.FEDERATION_CLIENTID }}" \
+              -e Settings__Federation__ClientSecret="${{ secrets.FEDERATION_CLIENTSECRET }}" \
               $IMAGE
 
-            echo "Cleaning up old images..."
+            echo "cleaning up old images..."
             docker image prune -f
+
