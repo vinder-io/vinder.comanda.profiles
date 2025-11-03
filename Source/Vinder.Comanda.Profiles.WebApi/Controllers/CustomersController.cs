@@ -5,6 +5,7 @@ namespace Vinder.Comanda.Profiles.WebApi.Controllers;
 public sealed class CustomersController(IDispatcher dispatcher) : ControllerBase
 {
     [HttpGet]
+    [Authorize(Roles = Permissions.ViewCustomers)]
     public async Task<IActionResult> GetCustomersAsync(
         [FromQuery] FetchCustomersParameters request, CancellationToken cancellation)
     {
@@ -19,6 +20,7 @@ public sealed class CustomersController(IDispatcher dispatcher) : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = Permissions.CreateCustomers)]
     public async Task<IActionResult> CreateCustomerAsync(
         [FromBody] CustomerCreationScheme request, CancellationToken cancellation)
     {
@@ -36,6 +38,7 @@ public sealed class CustomersController(IDispatcher dispatcher) : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = Permissions.EditCustomers)]
     public async Task<IActionResult> EditCustomerAsync(
         [FromBody] EditCustomerScheme request, [FromRoute] string id, CancellationToken cancellation)
     {
@@ -53,6 +56,7 @@ public sealed class CustomersController(IDispatcher dispatcher) : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = Permissions.DeleteCustomers)]
     public async Task<IActionResult> DeleteCustomerAsync(
         [FromQuery] CustomerDeletionScheme request, [FromRoute] string id, CancellationToken cancellation)
     {
@@ -69,6 +73,7 @@ public sealed class CustomersController(IDispatcher dispatcher) : ControllerBase
     }
 
     [HttpGet("{id}/addresses")]
+    [Authorize(Roles = Permissions.ViewCustomers)]
     public async Task<IActionResult> GetCustomerAddressAsync(
         [FromQuery] FetchCustomerAddressesParameters request, [FromRoute] string id, CancellationToken cancellation)
     {
@@ -86,6 +91,7 @@ public sealed class CustomersController(IDispatcher dispatcher) : ControllerBase
     }
 
     [HttpPost("{id}/addresses")]
+    [Authorize(Roles = Permissions.EditCustomers)]
     public async Task<IActionResult> AssignCustomerAddressAsync(
         [FromBody] AssignCustomerAddressScheme request, [FromRoute] string id, CancellationToken cancellation)
     {
@@ -107,6 +113,7 @@ public sealed class CustomersController(IDispatcher dispatcher) : ControllerBase
     }
 
     [HttpPut("{id}/addresses")]
+    [Authorize(Roles = Permissions.EditCustomers)]
     public async Task<IActionResult> EditCustomerAddressAsync(
         [FromBody] EditCustomerAddressScheme request, [FromRoute] string id, CancellationToken cancellation)
     {
@@ -132,6 +139,7 @@ public sealed class CustomersController(IDispatcher dispatcher) : ControllerBase
     }
 
     [HttpDelete("{id}/addresses")]
+    [Authorize(Roles = Permissions.EditCustomers)]
     public async Task<IActionResult> DeleteCustomerAddressAsync(
         [FromBody] DeleteCustomerAddressScheme request, [FromRoute] string id, CancellationToken cancellation)
     {
