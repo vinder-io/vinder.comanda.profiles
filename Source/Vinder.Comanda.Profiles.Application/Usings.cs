@@ -18,6 +18,7 @@ global using Vinder.Internal.Essentials.Entities;
 global using Vinder.Internal.Essentials.Filters;
 global using Vinder.Internal.Essentials.Primitives;
 global using Vinder.Internal.Essentials.Utilities;
+global using Vinder.Internal.Essentials.Extensions;
 
 global using Vinder.Dispatcher.Contracts;
 global using FluentValidation;
