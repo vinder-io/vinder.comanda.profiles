@@ -4,13 +4,20 @@ public static class OwnerMapper
 {
     public static Owner AsOwner(this OwnerCreationScheme owner)
     {
-        var user = new User(owner.UserId, owner.Username);
-        var contact = new Contact(owner.Email, owner.PhoneNumber);
+        var user = new User(
+            Identifier: owner.UserId,
+            Username: owner.Username.Trim().ToLowerInvariant()
+        );
+
+        var contact = new Contact(
+            Email: owner.Email.Trim().ToLowerInvariant(),
+            PhoneNumber: owner.PhoneNumber.Trim().SanitizeNumbers()
+        );
 
         return new Owner
         {
-            FirstName = owner.FirstName,
-            LastName = owner.LastName,
+            FirstName = owner.FirstName.Trim(),
+            LastName = owner.LastName.Trim(),
             User = user,
             Contact = contact
         };
@@ -18,17 +25,16 @@ public static class OwnerMapper
 
     public static Owner AsOwner(this EditOwnerScheme scheme, Owner existingOwner)
     {
-        existingOwner.FirstName = scheme.FirstName;
-        existingOwner.LastName = scheme.LastName;
+        existingOwner.FirstName = scheme.FirstName.Trim();
+        existingOwner.LastName = scheme.LastName.Trim();
 
         existingOwner.Contact = new Contact(
-            Email: scheme.Email,
-            PhoneNumber: scheme.PhoneNumber
+            Email: scheme.Email.Trim().ToLowerInvariant(),
+            PhoneNumber: scheme.PhoneNumber.Trim().SanitizeNumbers()
         );
 
         return existingOwner;
     }
-
 
     public static OwnerScheme AsResponse(this Owner owner) => new()
     {
