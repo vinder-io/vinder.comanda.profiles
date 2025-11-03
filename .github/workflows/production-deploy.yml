@@ -1,0 +1,48 @@
+name: production deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+
+            IMAGE="vinderio/comanda.profiles:latest"
+
+            echo "pulling latest image..."
+            docker pull $IMAGE
+
+            echo "stopping old container..."
+            docker stop comanda || true
+            docker rm comanda || true
+
+            echo "starting new container..."
+            docker run -d --name comanda -p 8080:80 \
+              -e Settings__Database__ConnectionString="${{ secrets.MONGO_CONNECTIONSTRING }}" \
+              -e Settings__Database__DatabaseName="${{ secrets.MONGO_DATABASENAME }}" \
+              -e Settings__Administration__Username="${{ secrets.ADMIN_USERNAME }}" \
+              -e Settings__Administration__Password="${{ secrets.ADMIN_PASSWORD }}" \
+              $IMAGE
+
+            echo "Cleaning up old images..."
+            docker image prune -f
