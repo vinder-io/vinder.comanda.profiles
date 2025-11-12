@@ -50,4 +50,16 @@ public static class HeadersExtension
 
         return response;
     }
+
+    public static HttpResponse WithResourceLocation(
+        this HttpResponse response, HttpRequest request, string resourceId)
+    {
+        var baseUrl = $"{request.Scheme}://{request.Host}{request.Path}";
+        var query = HttpUtility.ParseQueryString(request.QueryString.ToString());
+
+        query.Set("id", resourceId);
+        response.Headers.Append("Location", $"{baseUrl}?{query}");
+
+        return response;
+    }
 }
