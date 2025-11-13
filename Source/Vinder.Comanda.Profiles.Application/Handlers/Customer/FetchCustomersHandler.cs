@@ -26,8 +26,8 @@ public sealed class FetchCustomersHandler(ICustomerRepository repository) :
             Items = [.. customers.Select(customer => CustomerMapper.AsResponse(customer))],
             Total = (int)totalCount,
 
-            PageSize = message.Pagination?.PageSize ?? 0,
-            PageNumber = message.Pagination?.PageNumber ?? 0
+            PageSize = message.Pagination?.PageSize ?? 20,
+            PageNumber = message.Pagination?.PageNumber ?? 1
         };
 
         return Result<PaginationScheme<CustomerScheme>>.Success(pagination);

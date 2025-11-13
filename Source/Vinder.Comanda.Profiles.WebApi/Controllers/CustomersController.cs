@@ -11,11 +11,20 @@ public sealed class CustomersController(IDispatcher dispatcher) : ControllerBase
     {
         var result = await dispatcher.DispatchAsync(request, cancellation);
 
+        /* applies pagination navigation links according to RFC 8288 (web linking) */
+        /* https://datatracker.ietf.org/doc/html/rfc8288 */
+        if (result.IsSuccess && result.Data is not null)
+        {
+            Response.WithPagination(result.Data);
+            Response.WithWebLinking(result.Data, Request);
+        }
+
         // we know the switch here is not strictly necessary since we only handle the success case,
         // but we keep it for consistency with the rest of the codebase and to follow established patterns.
         return result switch
         {
-            { IsSuccess: true } => StatusCode(StatusCodes.Status200OK, result.Data),
+            { IsSuccess: true } when result.Data is not null =>
+                StatusCode(StatusCodes.Status200OK, result.Data.Items),
         };
     }
 
@@ -25,6 +34,13 @@ public sealed class CustomersController(IDispatcher dispatcher) : ControllerBase
         [FromBody] CustomerCreationScheme request, CancellationToken cancellation)
     {
         var result = await dispatcher.DispatchAsync(request, cancellation);
+
+        /* appends resource location header according to RFC 9110 (HTTP Semantics) */
+        /* https://www.rfc-editor.org/rfc/rfc9110.html */
+        if (result.IsSuccess && result.Data is not null)
+        {
+            Response.WithResourceLocation(Request, result.Data.Identifier);
+        }
 
         return result switch
         {
