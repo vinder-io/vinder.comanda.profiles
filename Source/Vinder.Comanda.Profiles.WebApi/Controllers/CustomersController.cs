@@ -5,6 +5,7 @@ namespace Vinder.Comanda.Profiles.WebApi.Controllers;
 public sealed class CustomersController(IDispatcher dispatcher) : ControllerBase
 {
     [HttpGet]
+    [Authorize(Roles = Permissions.ViewCustomers)]
     public async Task<IActionResult> GetCustomersAsync(
         [FromQuery] FetchCustomersParameters request, CancellationToken cancellation)
     {
@@ -28,6 +29,7 @@ public sealed class CustomersController(IDispatcher dispatcher) : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = Permissions.CreateCustomers)]
     public async Task<IActionResult> CreateCustomerAsync(
         [FromBody] CustomerCreationScheme request, CancellationToken cancellation)
     {
