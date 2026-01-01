@@ -20,7 +20,7 @@ public sealed class OwnersController(IDispatcher dispatcher) : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = Permissions.CreateOwners)]
+    [Authorize]
     public async Task<IActionResult> CreateOwnerAsync(
         [FromBody] OwnerCreationScheme request, CancellationToken cancellation)
     {

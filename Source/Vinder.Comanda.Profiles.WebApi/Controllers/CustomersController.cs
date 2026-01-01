@@ -20,7 +20,7 @@ public sealed class CustomersController(IDispatcher dispatcher) : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = Permissions.CreateCustomers)]
+    [Authorize]
     public async Task<IActionResult> CreateCustomerAsync(
         [FromBody] CustomerCreationScheme request, CancellationToken cancellation)
     {
