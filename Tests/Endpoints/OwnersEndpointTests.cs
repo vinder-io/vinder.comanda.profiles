@@ -35,14 +35,14 @@ public sealed class OwnersEndpointTests(IntegrationEnvironmentFixture factory) :
         Assert.False(string.IsNullOrWhiteSpace(content));
 
         /* assert: deserialize response and validate data structure */
-        var result = JsonSerializer.Deserialize<PaginationScheme<OwnerScheme>>(content, _serializerOptions);
+        var result = JsonSerializer.Deserialize<IEnumerable<OwnerScheme>>(content, _serializerOptions);
 
         /* assert: ensure response contains owners */
         Assert.NotNull(result);
-        Assert.NotEmpty(result.Items);
+        Assert.NotEmpty(result);
 
         /* assert: check if the number of returned owners matches the inserted ones */
-        Assert.Equal(owners.Count, result.Items.Count);
+        Assert.Equal(owners.Count, result.Count());
     }
 
     [Fact(DisplayName = "[e2e] - when POST /api/v1/owners is called with valid data, 201 Created is returned with the created owner")]

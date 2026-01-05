@@ -35,14 +35,14 @@ public sealed class CustomerEndpointTests(IntegrationEnvironmentFixture factory)
         Assert.False(string.IsNullOrWhiteSpace(content));
 
         /* assert: deserialize response and validate data structure */
-        var result = JsonSerializer.Deserialize<PaginationScheme<CustomerScheme>>(content, _serializerOptions);
+        var result = JsonSerializer.Deserialize<IEnumerable<CustomerScheme>>(content, _serializerOptions);
 
         /* assert: ensure response contains customers */
         Assert.NotNull(result);
-        Assert.NotEmpty(result.Items);
+        Assert.NotEmpty(result);
 
         /* assert: check if the number of returned customers matches the inserted ones */
-        Assert.Equal(customers.Count, result.Items.Count);
+        Assert.Equal(customers.Count, result.Count());
     }
 
     [Fact(DisplayName = "[e2e] - when POST /api/v1/customers is called with valid data, 201 Created is returned with the created customer")]
