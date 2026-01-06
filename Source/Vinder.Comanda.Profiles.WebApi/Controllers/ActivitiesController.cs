@@ -1,11 +1,11 @@
 namespace Vinder.Comanda.Profiles.WebApi.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/v1/activities")]
 public sealed class ActivitiesController(IDispatcher dispatcher) : ControllerBase
 {
     [HttpGet]
-    [Authorize(Roles = Permissions.ViewActivities)]
     public async Task<IActionResult> GetActivitiesAsync(
         [FromQuery] ActivityFetchParameters request, CancellationToken cancellation)
     {
