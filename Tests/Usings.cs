@@ -23,7 +23,6 @@ global using Vinder.Comanda.Profiles.Application.Payloads;
 global using Vinder.Comanda.Profiles.Application.Payloads.Customer;
 global using Vinder.Comanda.Profiles.Application.Payloads.Owner;
 
-global using Vinder.Comanda.Profiles.CrossCutting.Constants;
 global using Vinder.Comanda.Profiles.TestSuite.Fixtures;
 
 global using Vinder.Internal.Essentials.Patterns;
