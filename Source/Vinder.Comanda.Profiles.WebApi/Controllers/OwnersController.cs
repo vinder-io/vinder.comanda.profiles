@@ -6,6 +6,7 @@ namespace Vinder.Comanda.Profiles.WebApi.Controllers;
 public sealed class OwnersController(IDispatcher dispatcher) : ControllerBase
 {
     [HttpGet]
+    [Stability(Stability.Stable)]
     public async Task<IActionResult> GetOwnersAsync(
         [FromQuery] FetchOwnersParameters request, CancellationToken cancellation)
     {
@@ -29,6 +30,7 @@ public sealed class OwnersController(IDispatcher dispatcher) : ControllerBase
     }
 
     [HttpPost]
+    [Stability(Stability.Stable)]
     public async Task<IActionResult> CreateOwnerAsync(
         [FromBody] OwnerCreationScheme request, CancellationToken cancellation)
     {
@@ -46,6 +48,7 @@ public sealed class OwnersController(IDispatcher dispatcher) : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Stability(Stability.Stable)]
     public async Task<IActionResult> EditOwnerAsync(
         [FromBody] EditOwnerScheme request, [FromRoute] string id, CancellationToken cancellation)
     {
@@ -63,6 +66,7 @@ public sealed class OwnersController(IDispatcher dispatcher) : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Stability(Stability.Stable)]
     public async Task<IActionResult> DeleteOwnerAsync(
         [FromQuery] OwnerDeletionScheme request, [FromRoute] string id, CancellationToken cancellation)
     {

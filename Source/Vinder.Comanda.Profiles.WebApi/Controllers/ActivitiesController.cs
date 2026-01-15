@@ -6,6 +6,7 @@ namespace Vinder.Comanda.Profiles.WebApi.Controllers;
 public sealed class ActivitiesController(IDispatcher dispatcher) : ControllerBase
 {
     [HttpGet]
+    [Stability(Stability.Deprecated)]
     public async Task<IActionResult> GetActivitiesAsync(
         [FromQuery] ActivityFetchParameters request, CancellationToken cancellation)
     {
