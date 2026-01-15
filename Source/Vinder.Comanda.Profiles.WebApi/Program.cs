@@ -19,7 +19,7 @@ public partial class Program
         app.MapOpenApi();
 
         app.UseHttpPipeline();
-        app.UseSpecification();
+        app.UseSpecification(environment);
 
         await app.RunAsync();
     }
