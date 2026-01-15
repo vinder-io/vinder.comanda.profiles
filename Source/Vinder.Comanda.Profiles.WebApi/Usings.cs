@@ -6,6 +6,7 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Authorization;
 
 global using Vinder.Comanda.Profiles.WebApi.Extensions;
+global using Vinder.Comanda.Profiles.WebApi.Constants;
 global using Vinder.Comanda.Profiles.Domain.Errors;
 
 global using Vinder.Comanda.Profiles.Application.Payloads.Traceability;
