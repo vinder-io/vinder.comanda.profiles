@@ -9,7 +9,6 @@ public static class WebInfrastructureExtension
         services.AddHttpContextAccessor();
         services.AddEndpointsApiExplorer();
         services.AddCorsConfiguration();
-        services.AddOpenApi();
         services.AddIdentityServer();
         services.AddFluentValidationAutoValidation(options =>
         {
