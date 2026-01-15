@@ -14,7 +14,8 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9" />
-    <PackageReference Include="Scalar.AspNetCore" Version="2.9.0" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.12.7" />
+    <PackageReference Include="Scalar.AspNetCore.Microsoft" Version="2.12.7" />
     <PackageReference Include="Vinder.IdentityProvider.Sdk" Version="1.0.9" />
   </ItemGroup>
 
