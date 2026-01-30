@@ -42,3 +42,4 @@ services:
 
 volumes:
   vinder.comanda.profiles.infrastructure.mongo.database:
+  vinder.comanda.profiles.infrastructure.seq:
