@@ -14,6 +14,9 @@ public partial class Program
 
         builder.Configuration.AddEnvironmentVariables();
 
+        builder.AddObservability();
+        builder.AddMonitoring();
+
         var app = builder.Build();
 
         app.MapOpenApi();
