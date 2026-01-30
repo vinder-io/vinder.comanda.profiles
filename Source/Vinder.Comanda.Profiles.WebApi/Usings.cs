@@ -21,4 +21,5 @@ global using Vinder.Dispatcher.Contracts;
 global using Vinder.IdentityProvider.Sdk.Extensions;
 
 global using Scalar.AspNetCore;
+global using Serilog;
 global using FluentValidation.AspNetCore;
